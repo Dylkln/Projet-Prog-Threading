@@ -8,22 +8,22 @@ Usage:
     python nettoyage-dope-file.py
 """
 
-def nettoyage_file():
-    """Lit le fichier dope.par et sélectionne que les intercations CA CA."""
+def nettoyage_fichier():
+    """Lit le fichier dope.par et sélectionne que les interractions CA CA."""
     dope_ca = []
 
     with open("../data/dope.par", "r") as filin:
-        line = filin.readline()
-        while line != "":
-            tmp = line.split()
+        ligne = filin.readline()
+        while ligne != "":
+            tmp = ligne.split()
             if tmp[1] == tmp[3] == 'CA':
-                dope_ca.append(line)
-            line = filin.readline()
+                dope_ca.append(ligne)
+            ligne = filin.readline()
 
     with open("../data/dope-CA.par", "w") as filout:
-        for line in dope_ca:
-            filout.write("{}".format(line))
+        for ligne in dope_ca:
+            filout.write("{}".format(ligne))
 
 
 if __name__ == "__main__":
-    nettoyage_file()
+    nettoyage_fichier()
