@@ -1,9 +1,9 @@
 """
 Ce module permet de nettoyer le fichier dope.par.
 
-Il n'est pris en compte que les interactions CA CA.
-
-Si le fichier dope.par existe déja aucune action n'est réalisée.
+  - Il n'est pris en compte que les interactions CA CA.
+  - Si le fichier dope-CA.par existe déja, pas de nettoyage
+  - Les données présentes dans le fichier dope-CA.par sont stockées
 
 Instruction python if __name__ == "__main__":
   - Si le programme read_file.py est exécuté en tant que script dans un shell,
@@ -34,6 +34,21 @@ def nettoyage_dope_file():
     with open("../data/dope-CA.par", "w") as filout:
         for line in dope_ca:
             filout.write("{}".format(line))
+
+
+def save_dope():
+    nettoyage_dope_file()
+    data_dope = {}
+
+    with open("../data/dope-CA.par", "r") as filin:
+        lines = filin.readlines()
+        for line in lines:
+            tmp = line.split()
+            if tmp[0] not in data_dope.keys():
+                data_dope[tmp[0]] = {}
+            data_dope[tmp[0]][tmp[2]] = tmp[4:34]
+
+    return data_dope
 
 
 if __name__ == "__main__":

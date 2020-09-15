@@ -63,7 +63,6 @@ def convertir_sequence(seq_1_lettre):
         "K": 'LYS', "A": 'ALA', "V": 'VAL', "I": 'ILE', "L": 'LEU', "M": 'MET',
         "F": 'PHE', "W": 'TRP', "N": 'ASN', "Q": 'GLN', "S": 'SER', "T": 'THR',
         "P": 'PRO', "G": 'GLY'
-
     }
     seq_3_lettres = []
 

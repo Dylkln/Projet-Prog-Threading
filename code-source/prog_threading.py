@@ -7,11 +7,15 @@ Usage:
 
       - file.fasta: fichier fasta de la protéine cible (data/FASTA-file/)
       - file.pdb: fichier pdb de la protéine modèle (data/PDB-file/)
+
+   exemple
+     python prog_threading.py Q14493.fasta 2kjm.pdb
 """
 
 import sys
-from __modules__.fasta_file import *
-from __modules__.nettoyage_dope_file import *
+from __modules__.fasta_file import read_fasta_file
+from __modules__.pdb_file import read_pdb_file
+from __modules__.dope_file import save_dope
 
 
 def arguments():
@@ -29,6 +33,7 @@ def arguments():
 
 if __name__ == "__main__":
     arguments()
-    nettoyage_dope_file()
+    protein_cible = read_fasta_file(sys.argv[1])
+    matrix = read_pdb_file(sys.argv[2])
 
-    protein = read_fasta_file(sys.argv[1])
+    dope = save_dope()
