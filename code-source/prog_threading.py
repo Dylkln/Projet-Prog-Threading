@@ -38,8 +38,22 @@ if __name__ == "__main__":
     sequence = read_fasta_file(sys.argv[1])  # Protéine cible
     dope = save_dope()
 
-    matrix = Matrix(template=list(distance.columns), sequence=sequence)
-    matrix.create_zero_matrix()
+    # Initilaliser la matrice de haut niveau
+    high_level = Matrice(template=list(distance.columns), sequence=sequence)
+    high_level.create_zero_matrix()
 
-    aa_fixed = {"Name": 'ALA', "Pos": (2,4)}
-    matrix.remplissage_matrice(dope, distance, aa_fixed)
+    # Générer les matrices de bas niveau
+    for row in range(1, high_level.nb_rows):
+        for col in range(1, high_level.nb_cols):
+            low_level = Matrice(template=list(distance.columns),
+                                sequence=sequence)
+            low_level.create_zero_matrix()
+
+            aa_fixed = {'Name': high_level.row_names[row], 'Pos': (row, col)}
+            low_level.remplissage_matrice(dope, distance, aa_fixed)
+
+            high_level.matrice[row][col] = low_level.score_opti
+
+
+
+    high_level.show_matrix()

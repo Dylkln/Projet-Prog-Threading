@@ -7,8 +7,8 @@ import pandas as pd
 import sys
 
 
-class Matrix:
-    """Classe Matrix"""
+class Matrice:
+    """Classe Matrice"""
     col_names = ""
     row_names = ""
     nb_cols = 0
@@ -36,10 +36,25 @@ class Matrix:
             - Name: le code à 3 lettres de l'acide aminé fixé
             - Pos: tupple (row, col) de l'acide aminé fixé
         """
+
+        self.parcourir_matrice(
+            n=1, o=aa_fixed['Pos'][0] + 1,
+            k=1, l=aa_fixed['Pos'][1] + 1,
+            dope=dope, distance=distance, aa_fixed=aa_fixed
+        )
+
+        self.parcourir_matrice(
+            n=aa_fixed['Pos'][0], o=self.nb_rows,
+            k=aa_fixed['Pos'][1], l=self.nb_cols,
+            dope=dope, distance=distance, aa_fixed=aa_fixed
+        )
+
+
+    def parcourir_matrice(self, n, o, k, l, dope, distance, aa_fixed):
         gap = 1
 
-        for row in range(1, aa_fixed['Pos'][0] + 1):
-            for col in range(1, aa_fixed['Pos'][1] + 1):
+        for row in range(n, o):
+            for col in range(k, l):
                 position = {
                     'AA-fixed': self.col_names[aa_fixed['Pos'][1]],
                     'AA-test': self.col_names[col]
@@ -56,27 +71,8 @@ class Matrix:
 
                 self.matrice[row][col] = min(a, b, c)
 
-        for row in range(aa_fixed['Pos'][0], self.nb_rows):
-            for col in range(aa_fixed['Pos'][1], self.nb_cols):
-                position = {
-                    'AA-fixed': self.col_names[aa_fixed['Pos'][1]],
-                    'AA-test': self.col_names[col]
-                }
-                aa_test = self.row_names[row]
-
-                a = self.score_dope(
-                    list_score=dope[aa_fixed['Name']][aa_test],
-                    dist=distance[position['AA-fixed']][position['AA-test']]
-                ) + self.matrice[row - 1][col - 1]
-
-                b = self.matrice[row - 1][col] + gap
-                c = self.matrice[row][col - 1] + gap
-
-                self.matrice[row][col] = min(a, b, c)
-
-        self.score_opti = self.matrice[row][col]
-
-        self.show_matrix()
+                if row == self.nb_rows - 1 and col == self.nb_cols - 1:
+                    self.score_opti = self.matrice[row][col]
 
 
     def score_dope(self, list_score, dist):
