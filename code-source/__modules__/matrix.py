@@ -77,9 +77,9 @@ class Matrice:
         Parameter
         ---------
         n, o : int
-            range sur lequel on parcours les lignes de la matrice
+            range sur lequel on parcourt les lignes de la matrice
         k, l : int
-            range sur lequel on parcours les colonnes de la matrice
+            range sur lequel on parcourt les colonnes de la matrice
         aa_fixed: dictionary
             - Name: le code à 3 lettres de l'acide aminé fixé
             - Pos: tupple (row, col) de l'acide aminé fixé
