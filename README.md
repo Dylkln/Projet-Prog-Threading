@@ -5,6 +5,7 @@ Conception d'un programme de threading par double programmation dynamique.
 ### Auteurs
 
 Pierre IMBERT : pierre.damase.mbert@gmail.com
+
 Dylan KLEIN : klein.dylan@outlook.com
 
 Université de Paris M2-BI
