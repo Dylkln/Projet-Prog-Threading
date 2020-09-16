@@ -1,5 +1,5 @@
 """
-Programme principal
+Programme principal.
 
 Usage:
 ------
@@ -22,8 +22,8 @@ from __modules__.matrix import *
 def arguments():
     """Vérifie que 2 arguments sont passés en paramètre.
 
-      - Le fichier fasta de la protéine cible.
-      - Le fichier pdb de la protéine modèle.
+    Le fichier fasta de la protéine cible.
+    Le fichier pdb de la protéine modèle.
     """
     if len(sys.argv) != 3:
         sys.exit('Veuillez renseigner 2 arguments\n'
@@ -38,9 +38,15 @@ if __name__ == "__main__":
     sequence = read_fasta_file(sys.argv[1])  # Protéine cible
     dope = save_dope()
 
+    print("Alignement de la séquence cible {} avec la structure modèle {}"
+          .format(sys.argv[1], sys.argv[2]))
+
     # Initilaliser la matrice de haut niveau
     high_level = Matrice(template=list(distance.columns), sequence=sequence)
     high_level.create_zero_matrix()
+
+    aa_fixed = {'Name': high_level.row_names[2], 'Pos': (2, 4)}
+    high_level.remplissage_matrice(dope, distance, aa_fixed)
 
     # Générer les matrices de bas niveau
     for row in range(1, high_level.nb_rows):
@@ -54,6 +60,8 @@ if __name__ == "__main__":
 
             high_level.matrice[row][col] = low_level.score_opti
 
+    print(high_level)
 
-
-    high_level.show_matrix()
+    # Alignement
+    align = high_level.chemin_opti()
+    high_level.show_align(align, sys.argv[1], sys.argv[2])
