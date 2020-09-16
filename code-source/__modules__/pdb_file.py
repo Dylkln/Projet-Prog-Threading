@@ -4,6 +4,8 @@ Ce module permet de lire un fichier pdb passé en paramètre.
 Le fichier pdb correspond à la structure modèle utilisée pour déterminer la
 conformation 3D de la protéine cible.
 
+Un seul modèle contenu dans le fichier pdb est pris en compte.
+
 Le module permet de:
   - Lire un fichier pdb stocké dans data/PDB-file/
   - Vérifier que le fichier pdb existe
@@ -71,7 +73,7 @@ def save_coord(fichier):
     with open(f"../data/PDB-file/{fichier}", "r") as filin:
         lines = filin.readlines()
         for line in lines:
-            if line.startswith("ENDMDL") # Un seul modèle est pris en compte
+            if line.startswith("ENDMDL")
             	return coord
             if line.startswith("ATOM"):
                	num_atom = int(line[7:11])
@@ -103,10 +105,10 @@ def extract_coord(line):
 
 
 def create_euclidian_matrix(coord_dict):
-	"""créé une matrice de distance euclidienne à partir des coordonnées des
-	atomes.
+    """créé une matrice de distance euclidienne à partir des coordonnées des
+    atomes.
 
-     Parameters
+    Parameters
     ----------
     coord_dict: dictionary
         dictionnaire contenant en clé le numéro de l'atome et en valeur
