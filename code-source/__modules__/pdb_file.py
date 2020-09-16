@@ -9,7 +9,7 @@ Un seul modèle contenu dans le fichier pdb est pris en compte.
 Le module permet de:
   - Lire un fichier pdb stocké dans data/PDB-file/
   - Vérifier que le fichier pdb existe
-  - Créer la matrice de distance euclidienne 3D des atomes de la protéine modèle
+  - Créer la matrice de distance euclidienne des atomes de la protéine modèle
     Il n'est pris en compte que les Calpha
 
 Instruction python if __name__ == "__main__":
@@ -46,9 +46,7 @@ def valide_pdb_file(pdb, path):
       - False: fichier non valide
     """
     if pdb.endswith('pdb') and os.path.exists(path + pdb):
-    
         return True
-
     return False
 
 
@@ -69,16 +67,16 @@ def save_coord(fichier):
         coordonnées x, y et z des atomes
     """
     coord = {}
-    
+
     with open(f"../data/PDB-file/{fichier}", "r") as filin:
         lines = filin.readlines()
         for line in lines:
-            if line.startswith("ENDMDL")
-            	return coord
+            if line.startswith("ENDMDL"):
+                return coord
             if line.startswith("ATOM"):
-               	num_atom = int(line[7:11])
-               	if line[12:16].strip() == "CA":
-                   	coord[num_atom] = np.array(extract_coord(line))
+                num_atom = int(line[7:11])
+                if line[12:16].strip() == "CA":
+                    coord[num_atom] = np.array(extract_coord(line))
 
     return coord
 
@@ -100,13 +98,14 @@ def extract_coord(line):
     coord_y = float(line[38:46])
     coord_z = float(line[46:54])
     coord = [coord_x, coord_y, coord_z]
-    
+
     return coord
 
 
 def create_euclidian_matrix(coord_dict):
-    """créé une matrice de distance euclidienne à partir des coordonnées des
-    atomes.
+    """Créer une matrice de distance euclidienne.
+
+    Et ceux à partir des coordonnées des atomes.
 
     Parameters
     ----------
@@ -119,42 +118,39 @@ def create_euclidian_matrix(coord_dict):
     matrix: DataFrame
         Dataframe contenant les distances euclidiennes entre chaque atome
     """
-	cles = []
-	valeurs = []
-	rows_cols = len(coord_dict.keys())
+    cles = []
+    valeurs = []
+    rows_cols = len(coord_dict.keys())
 
-	matrix = pd.DataFrame(np.zeros((rows_cols, rows_cols)))
-	matrix.columns = coord_dict.keys()
-	matrix.index = coord_dict.keys()
+    matrix = pd.DataFrame(np.zeros((rows_cols, rows_cols)))
+    matrix.columns = coord_dict.keys()
+    matrix.index = coord_dict.keys()
 
-	for cle, valeur in coord_dict.items():
-		cles.append(cle)
-		valeurs.append(valeur)
+    for cle, valeur in coord_dict.items():
+        cles.append(cle)
+        valeurs.append(valeur)
 
-	for i in range(len(cles)):
-		for j in range(len(cles)):
-			a = valeurs[i]
-			b = valeurs[j]
-			distance = np.linalg.norm(a - b)
-			matrix[cles[i]][cles[j]] = distance
+    for i in range(len(cles)):
+        for j in range(len(cles)):
+            a = valeurs[i]
+            b = valeurs[j]
+            distance = np.linalg.norm(a - b)
+            matrix[cles[i]][cles[j]] = distance
 
-	return matrix
+    return matrix
 
 
 def read_pdb_file(pdb):
     """Le main du programme."""
-    
     path = "../data/PDB-file/"
-    
+
     if valide_pdb_file(pdb, path):
         coord_dict = save_coord(pdb)
         matrix = create_euclidian_matrix(coord_dict)
         matrix = matrix.round(4)
-    
     else:
         raise Exception("Veuillez renseigner un fichier pdb valide!")
 
-    
     return matrix
 
 
