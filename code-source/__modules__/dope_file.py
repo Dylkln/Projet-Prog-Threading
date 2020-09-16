@@ -17,7 +17,7 @@ import sys
 
 
 def nettoyage_dope_file():
-    """Lit le fichier dope.par et sélectionne que les intercations CA CA."""
+    """Lit le fichier dope.par et sélectionne que les interactions CA CA."""
     path = "../data/dope-CA.par"
     if os.path.exists(path):
         return None
@@ -37,6 +37,7 @@ def nettoyage_dope_file():
 
 
 def save_dope():
+    """Le main du programme."""
     nettoyage_dope_file()
     data_dope = {}
 

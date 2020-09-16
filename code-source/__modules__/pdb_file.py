@@ -1,13 +1,13 @@
 """
 Ce module permet de lire un fichier pdb passé en paramètre.
 
-Le fichier pdb correspond à la structure modèle utilisé pour déterminer la
+Le fichier pdb correspond à la structure modèle utilisée pour déterminer la
 conformation 3D de la protéine cible.
 
 Le module permet de:
   - Lire un fichier pdb stocké dans data/PDB-file/
   - Vérifier que le fichier pdb existe
-  - Créer la matrice de distance euclidienne 3D des atomes de la potéine modèle
+  - Créer la matrice de distance euclidienne 3D des atomes de la protéine modèle
     Il n'est pris en compte que les Calpha
 
 Instruction python if __name__ == "__main__":
@@ -44,7 +44,9 @@ def valide_pdb_file(pdb, path):
       - False: fichier non valide
     """
     if pdb.endswith('pdb') and os.path.exists(path + pdb):
+    
         return True
+
     return False
 
 
@@ -65,22 +67,24 @@ def save_coord(fichier):
         coordonnées x, y et z des atomes
     """
     coord = {}
+    
     with open(f"../data/PDB-file/{fichier}", "r") as filin:
         lines = filin.readlines()
         for line in lines:
+            if line.startswith("ENDMDL") # Un seul modèle est pris en compte
+            	return coord
             if line.startswith("ATOM"):
-                num_atom = int(line[7:11])
-                if line[12:16].strip() == "CA":
-                    coord[num_atom] = np.array(extract_coord(line))
-                else:
-                    continue
+               	num_atom = int(line[7:11])
+               	if line[12:16].strip() == "CA":
+                   	coord[num_atom] = np.array(extract_coord(line))
+
     return coord
 
 
 def extract_coord(line):
     """Extrait les coordonnées x, y et z d'une ligne ATOM d'un fichier pdb.
 
-     Parameters
+    Parameters
     ----------
     line: string
         une ligne ATOM du fichier pdb
@@ -94,6 +98,7 @@ def extract_coord(line):
     coord_y = float(line[38:46])
     coord_z = float(line[46:54])
     coord = [coord_x, coord_y, coord_z]
+    
     return coord
 
 
@@ -103,7 +108,7 @@ def create_euclidian_matrix(coord_dict):
 
      Parameters
     ----------
-    coord_dict: dictionnaire
+    coord_dict: dictionary
         dictionnaire contenant en clé le numéro de l'atome et en valeur
         la liste représentant les coordonnées x, y et z de l'atome
 
@@ -136,14 +141,18 @@ def create_euclidian_matrix(coord_dict):
 
 def read_pdb_file(pdb):
     """Le main du programme."""
+    
     path = "../data/PDB-file/"
+    
     if valide_pdb_file(pdb, path):
         coord_dict = save_coord(pdb)
         matrix = create_euclidian_matrix(coord_dict)
         matrix = matrix.round(4)
+    
     else:
         raise Exception("Veuillez renseigner un fichier pdb valide!")
 
+    
     return matrix
 
 

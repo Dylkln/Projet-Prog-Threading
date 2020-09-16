@@ -21,7 +21,7 @@ import sys
 
 
 def valide_fasta_file(fasta, path):
-    """Vérifie que le fichier fasta passer en paramètre est valide.
+    """Vérifie que le fichier fasta passé en paramètre est valide.
 
     I.E:
       - fichier au format fasta
@@ -41,7 +41,9 @@ def valide_fasta_file(fasta, path):
       - False: fichier non valide
     """
     if fasta.endswith('fasta') and os.path.exists(path + fasta):
+    
         return True
+    
     return False
 
 
@@ -75,7 +77,7 @@ def convertir_sequence(seq_1_lettre):
 def read_fasta_file(fasta):
     """Lit le fichier fasta passé en paramètre.
 
-     Parameter
+    Parameter
     ---------
     fasta: str
         le nom du fichier fasta
@@ -86,6 +88,7 @@ def read_fasta_file(fasta):
         la séquence en acides aminés de la protéines cible (code 3 lettres)
     """
     path = "../data/FASTA-file/"
+    
     if valide_fasta_file(fasta, path):
         with open(path + fasta, "r") as filin:
             seq_1_lettre = ""
@@ -93,6 +96,7 @@ def read_fasta_file(fasta):
                 if not line.startswith(">"):
                     seq_1_lettre += line.strip()
         seq_3_lettres = convertir_sequence(seq_1_lettre)
+    
     else:
         raise Exception("Veuillez renseigner un fichier fasta valide!")
 
