@@ -7,6 +7,8 @@ Conception d'un programme de threading par double programmation dynamique.
 Pierre IMBERT : pierre.damase.mbert@gmail.com
 Dylan KLEIN : klein.dylan@outlook.com
 
+Université de Paris M2-BI
+
 ### Date
 
 16 septembre 2020
