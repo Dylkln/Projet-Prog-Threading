@@ -35,14 +35,14 @@ conda env create --file environment.yml
 conda activate prog-threading
 ```
 
-4. Exécuter le programme
+## Exécuter le programme
 
+Pour lancer le programme il faut exécuter le programme *prog_threading.py*.
 ```
 python prog_threading.py FILE.fasta FILE.pdb
 ```
 
-## Tests
-
+Fichier fasta et pdb de test
 ```
 python prog_threading.py 2KJM.fasta 2kjm.pdb
 ```
