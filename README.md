@@ -4,15 +4,13 @@
 
 ## Threading de protéine
 
-<div style="text-align: justify;">
 Méthode qui consiste à prédire la structure 3D d'une protéine cible à partir de sa séquence en acide aminé (1D) en utilisant comme modèles des structures 3D déja résolu dans la Protein Data Bank.
-</div>
+{: style="text-align: justify"}
 
 ## Double programmation dynamique
 
-<div style="text-align: justify;">
 Méthode qui consiste, pout tout couple (a,p), à déterminer le score minimal de l'alignement de la séquence cible avec la struture modèle (avec a n’importe quel acide aminé de la séquence cible et p n’importe quelle position de la structure modèle). Le score minimal de chaque couple (a,p) est stocké dans une matrice de haut niveau. Ensuite, l'alignement optimal entre la séquence et la structure est déterminé en trouvant le meilleur chemin dans cette matrice.  
-</div>
+{: style="text-align: justify"}
 
 ## Prérequis
 
