@@ -49,6 +49,8 @@ python prog_threading.py FILE.fasta FILE.pdb
 Fichier fasta et pdb de test
 ```
 python prog_threading.py 2KJM.fasta 2kjm.pdb
+
+python prog_threading.py 3CHY.fasta 4FXN.pdb
 ```
 
 ## Auteurs
