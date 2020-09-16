@@ -105,10 +105,10 @@ def extract_coord(line):
 
 
 def create_euclidian_matrix(coord_dict):
-	"""créé une matrice de distance euclidienne à partir des coordonnées des
-	atomes.
+    """créé une matrice de distance euclidienne à partir des coordonnées des
+    atomes.
 
-     Parameters
+    Parameters
     ----------
     coord_dict: dictionary
         dictionnaire contenant en clé le numéro de l'atome et en valeur
