@@ -13,3 +13,7 @@ Université de Paris M2-BI
 ### Date
 
 16 septembre 2020
+
+### Installation
+
+1. conda env create --file environment.yml
