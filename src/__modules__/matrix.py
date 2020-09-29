@@ -22,7 +22,6 @@ class Matrice:
       - score_opti: le score d'alignement optimal (d'une matrice de bas niveau)
       - matrice: la matrice de haut niveau
     """
-
     col_names = ""
     row_names = ""
     nb_cols = 0
@@ -30,7 +29,7 @@ class Matrice:
     score_opti = 0
     matrice = 0
 
-    def __init__(self, template, sequence):
+    def __init__(self, template, sequence, gap_score):
         """Constructeur de la classe Matrice.
 
         Parameter
@@ -39,12 +38,15 @@ class Matrice:
             position des acides aminés
         sequence: list
             séquence en acide aminés
+        gap_score: int
+            la pénalité du gap - entre 0 et 5
         """
         self.col_names = ['__'] + template
         self.row_names = ['__'] + sequence
         self.nb_cols = len(self.col_names)
         self.nb_rows = len(self.row_names)
         self.create_zero_matrix()
+        self.gap_score = gap_score
 
     def create_zero_matrix(self):
         """Créé une matrice et l'initialise avec que des zéro."""
@@ -100,8 +102,6 @@ class Matrice:
             - Name: le code à 3 lettres de l'acide aminé fixé
             - Pos: tupple (row, col) de l'acide aminé fixé
         """
-        gap = 1
-
         for row in range(n, o):
             for col in range(k, m):
 
@@ -117,8 +117,8 @@ class Matrice:
                     dist=distance[position['AA-fixed']][position['AA-test']]
                 ) + self.matrice[row - 1][col - 1]
 
-                deletion = self.matrice[row - 1][col] + gap
-                insertion = self.matrice[row][col - 1] + gap
+                deletion = self.matrice[row - 1][col] + self.gap_score
+                insertion = self.matrice[row][col - 1] + self.gap_score
 
                 self.matrice[row][col] = min(align, deletion, insertion)
 

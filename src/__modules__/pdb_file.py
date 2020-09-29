@@ -25,7 +25,7 @@ import numpy as np
 import sys
 
 
-def valide_pdb_file(pdb, path):
+def valide_pdb_file(pdb):
     """Vérifie que le fichier pdb passer en paramètre est valide.
 
     I.E:
@@ -36,8 +36,6 @@ def valide_pdb_file(pdb, path):
     ---------
     pdb: str
         le nom du fichier fasta
-    path: str
-        le path des fichiers fasta
 
     Return
     ------
@@ -45,7 +43,7 @@ def valide_pdb_file(pdb, path):
       - True: fichier valide
       - False: fichier non valide
     """
-    if pdb.endswith('pdb') and os.path.exists(path + pdb):
+    if pdb.endswith('.pdb') and os.path.exists(pdb):
         return True
     return False
 
@@ -68,7 +66,7 @@ def save_coord(fichier):
     """
     coord = {}
 
-    with open(f"../data/PDB-file/{fichier}", "r") as filin:
+    with open(fichier, "r") as filin:
         lines = filin.readlines()
         for line in lines:
             if line.startswith("ENDMDL"):
@@ -142,9 +140,7 @@ def create_euclidian_matrix(coord_dict):
 
 def read_pdb_file(pdb):
     """Le main du programme."""
-    path = "../data/PDB-file/"
-
-    if valide_pdb_file(pdb, path):
+    if valide_pdb_file(pdb):
         coord_dict = save_coord(pdb)
         matrix = create_euclidian_matrix(coord_dict)
         matrix = matrix.round(4)
