@@ -45,7 +45,6 @@ Pour lancer le programme il faut exécuter le programme *prog_threading.py*.
 ```
 python prog_threading.py FILE.fasta FILE.pdb -a ATOM -g GAP
 ```
-<br/><br/>
 
 - Arguments obligatoires
 
