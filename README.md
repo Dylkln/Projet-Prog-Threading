@@ -43,14 +43,35 @@ conda activate prog-threading
 
 Pour lancer le programme il faut exécuter le programme *prog_threading.py*.
 ```
-python prog_threading.py FILE.fasta FILE.pdb
+python prog_threading.py FILE.fasta FILE.pdb -a ATOM -g GAP
 ```
+
+Arguments obligatoires
+
+> FILE.fasta
+
+La séquence en acides aminés de la protéine cible au format .fasta
+
+> FILE.pdb
+
+La strucutre 3D de la protéine modèle au format .pdb
+
+Arguments optionnels
+
+> ATOM
+
+Les atomes de la matrice DOPE pris en compte - par défaut CA
+
+> GAP
+
+La pénalité de gap comprise entre 0 et 5 - par défaut vat 1
+
 
 Fichier fasta et pdb de test
 ```
-python prog_threading.py 2KJM.fasta 2kjm.pdb
+python prog_threading.py python prog_threading.py ../data/FASTA-file/2KJM.fasta ../data/PDB-file/2kjm.pdb
 
-python prog_threading.py 3CHY.fasta 4FXN.pdb
+python prog_threading.py python prog_threading.py ../data/FASTA-file/3CHY.fasta ../data/PDB-file/4FXN.pdb
 ```
 
 ## Auteurs
