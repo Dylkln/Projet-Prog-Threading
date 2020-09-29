@@ -46,17 +46,17 @@ Pour lancer le programme il faut exécuter le programme *prog_threading.py*.
 python prog_threading.py FILE.fasta FILE.pdb -a ATOM -g GAP
 ```
 
-Arguments obligatoires
+- Arguments obligatoires
 
 > FILE.fasta
-
+  
 La séquence en acides aminés de la protéine cible au format .fasta
 
 > FILE.pdb
 
 La strucutre 3D de la protéine modèle au format .pdb
 
-Arguments optionnels
+- Arguments optionnels
 
 > ATOM
 
