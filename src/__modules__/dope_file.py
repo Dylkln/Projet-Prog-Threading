@@ -1,7 +1,8 @@
 """
 Ce module permet de nettoyer le fichier dope.par.
 
-  - Il n'est pris en compte que les interactions CA CA.
+  - Il n'est pris en compte que les interactions atoms atoms.
+    "atoms" est renseigné par l'utilisateur, par défaut il vaut CA
   - Si le fichier dope-CA.par existe déja, pas de nettoyage
   - Les données présentes dans le fichier dope-CA.par sont stockées
 
@@ -16,32 +17,44 @@ import os
 import sys
 
 
-def nettoyage_dope_file():
-    """Lit le fichier dope.par et sélectionne que les interactions CA CA."""
-    path = "../data/dope-CA.par"
+def nettoyage_dope_file(atoms):
+    """Lit le fichier dope.par et sélectionne les interactions atoms atoms.
+
+    Parameter
+    ---------
+    atoms: str
+        les atomes à prendre en compte dans le fichier DOPE
+    """
+    path = f"../data/dope-{atoms}.par"
     if os.path.exists(path):
         return None
 
-    dope_ca = []
+    dope_atoms = []
     with open("../data/dope.par", "r") as filin:
         line = filin.readline()
         while line != "":
             tmp = line.split()
-            if tmp[1] == tmp[3] == 'CA':
-                dope_ca.append(line)
+            if tmp[1] == tmp[3] == atoms:
+                dope_atoms.append(line)
             line = filin.readline()
 
-    with open("../data/dope-CA.par", "w") as filout:
-        for line in dope_ca:
+    with open(f"../data/dope-{atoms}.par", "w") as filout:
+        for line in dope_atoms:
             filout.write("{}".format(line))
 
 
-def save_dope():
-    """Le main du programme."""
-    nettoyage_dope_file()
+def save_dope(atoms):
+    """Le main du programme.
+
+    Parameter
+    ---------
+    atoms: str
+        les atomes à prendre en compte dans le fichier DOPE
+    """
+    nettoyage_dope_file(atoms)
     data_dope = {}
 
-    with open("../data/dope-CA.par", "r") as filin:
+    with open(f"../data/dope-{atoms}.par", "r") as filin:
         lines = filin.readlines()
         for line in lines:
             tmp = line.split()
