@@ -45,6 +45,7 @@ Pour lancer le programme il faut exécuter le programme *prog_threading.py*.
 ```
 python prog_threading.py FILE.fasta FILE.pdb -a ATOM -g GAP
 ```
+<br/><br/>
 
 - Arguments obligatoires
 
@@ -55,6 +56,7 @@ La séquence en acides aminés de la protéine cible au format .fasta
 > FILE.pdb
 
 La strucutre 3D de la protéine modèle au format .pdb
+<br/><br/>
 
 - Arguments optionnels
 
@@ -65,9 +67,9 @@ Les atomes de la matrice DOPE pris en compte - par défaut CA
 > GAP
 
 La pénalité de gap comprise entre 0 et 5 - par défaut vat 1
+<br/><br/>
 
-
-Fichier fasta et pdb de test
+- Fichier fasta et pdb de test
 ```
 python prog_threading.py python prog_threading.py ../data/FASTA-file/2KJM.fasta ../data/PDB-file/2kjm.pdb
 
