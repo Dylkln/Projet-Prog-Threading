@@ -19,33 +19,9 @@ Instruction python if __name__ == "__main__":
     et non execution du bloc d'instruction.
 """
 
-import os
 import pandas as pd
 import numpy as np
 import sys
-
-
-def valide_pdb_file(pdb):
-    """Vérifie que le fichier pdb passer en paramètre est valide.
-
-    I.E:
-      - fichier au format pdb
-      - fichier présent dans le répertoire data/PDB-file/
-
-    Parameter
-    ---------
-    pdb: str
-        le nom du fichier fasta
-
-    Return
-    ------
-    Boolean
-      - True: fichier valide
-      - False: fichier non valide
-    """
-    if pdb.endswith('.pdb') and os.path.exists(pdb):
-        return True
-    return False
 
 
 def save_coord(fichier):
@@ -140,12 +116,9 @@ def create_euclidian_matrix(coord_dict):
 
 def read_pdb_file(pdb):
     """Le main du programme."""
-    if valide_pdb_file(pdb):
-        coord_dict = save_coord(pdb)
-        matrix = create_euclidian_matrix(coord_dict)
-        matrix = matrix.round(4)
-    else:
-        raise Exception("Veuillez renseigner un fichier pdb valide!")
+    coord_dict = save_coord(pdb)
+    matrix = create_euclidian_matrix(coord_dict)
+    matrix = matrix.round(4)
 
     return matrix
 

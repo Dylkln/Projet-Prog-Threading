@@ -49,7 +49,7 @@ def save_dope(atoms):
     Parameter
     ---------
     atoms: str
-        les atomes à prendre en compte dans le fichier DOPE
+        les atomes du fichier DOPE à prendre en compte
     """
     nettoyage_dope_file(atoms)
     data_dope = {}

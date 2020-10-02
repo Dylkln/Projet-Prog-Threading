@@ -13,12 +13,49 @@ Usage:
 
 """
 
+import argparse
 import sys
-from __modules__.argument import arguments
-from __modules__.dope_file import save_dope
 from __modules__.fasta_file import read_fasta_file
 from __modules__.pdb_file import read_pdb_file
+from __modules__.dope_file import save_dope
 import __modules__.matrix as matrix
+
+
+def arguments():
+    """
+    Détermine les arguments requis & optionnels pour le programme.
+
+    Return
+    ------
+    args.fichier_fasta: str
+        la protéine cible (.fasta)
+    args.fichier_pdb: str
+        la protéine modèle (.pdb)
+    args.gap: int
+        la pénalité du gap - par défaut 1
+    args.atoms: str
+        les atomes du fichier DOPE à prendre en compte
+    """
+    parser = argparse.ArgumentParser()
+
+    # Argument nécessaire
+    group = parser.add_argument_group('fichiers', "les fichiers pour l'analyse")
+    group.add_argument('fichier_fasta',
+                       help="la séquence en acide aminés de la protéine cible")
+    group.add_argument('fichier_pdb',
+                       help="la structure 3D de la protéine modèle")
+
+    # Argument optionnel
+    parser.add_argument('-g', '--gap', type=int, default=1, choices=range(6),
+                        help="La pénalité du gap - par défaut vaut 1 et >= 0")
+    parser.add_argument('-a', '--atoms', default='CA', choices=['CA', 'C'],
+                        help="Les atomes du fichier DOPE à prendre en compte")
+    parser.add_argument('-m', '--model', default=1,
+                        help="le modèle de la strucutre à prendre en compte")
+
+    args = parser.parse_args()
+
+    return args.fichier_fasta, args.fichier_pdb, args.gap, args.atoms
 
 
 if __name__ == "__main__":
@@ -27,6 +64,8 @@ if __name__ == "__main__":
     distance = read_pdb_file(pdb)  # Matrice de distance
     sequence = read_fasta_file(fasta)  # Protéine cible
     dope = save_dope(atoms)
+
+    sys.exit()
 
     fasta, pdb = fasta.split('/')[-1], pdb.split('/')[-1]
 
