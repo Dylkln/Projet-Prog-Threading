@@ -16,31 +16,7 @@ Instruction python if __name__ == "__main__":
     et non execution du bloc d'instruction.
 """
 
-import os
 import sys
-
-
-def valide_fasta_file(fasta):
-    """Vérifie que le fichier fasta passé en paramètre est valide.
-
-    I.E:
-      - fichier au format fasta
-      - fichier présent dans le répertoire data/FASTA-file/
-
-    Parameter
-    ---------
-    fasta: str
-        le nom du fichier fasta
-
-    Return
-    ------
-    Boolean
-      - True: fichier valide
-      - False: fichier non valide
-    """
-    if fasta.endswith('.fasta') and os.path.exists(fasta):
-        return True
-    return False
 
 
 def convertir_sequence(seq_1_lettre):
@@ -83,16 +59,12 @@ def read_fasta_file(fasta):
     seq_3_lettres: list
         la séquence en acides aminés de la protéines cible (code 3 lettres)
     """
-    if valide_fasta_file(fasta):
-        with open(fasta, "r") as filin:
-            seq_1_lettre = ""
-            for line in filin:
-                if not line.startswith(">"):
-                    seq_1_lettre += line.strip()
-        seq_3_lettres = convertir_sequence(seq_1_lettre)
-
-    else:
-        raise Exception("Veuillez renseigner un fichier fasta valide!")
+    with open(fasta, "r") as filin:
+        seq_1_lettre = ""
+        for line in filin:
+            if not line.startswith(">"):
+                seq_1_lettre += line.strip()
+    seq_3_lettres = convertir_sequence(seq_1_lettre)
 
     return seq_3_lettres
 
