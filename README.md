@@ -77,7 +77,7 @@ python prog_threading.py python prog_threading.py ../data/FASTA-file/3CHY.fasta 
 
 ## Auteurs
 
-Pierre IMBERT : pierre.damase.mbert@gmail.com
+Pierre IMBERT
 
 Dylan KLEIN : klein.dylan@outlook.com
 
